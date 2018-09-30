@@ -26,11 +26,25 @@ class App extends Component {
         }
     }
 
+    onGridReady(event) {
+        event.preventDefault();
+        this.gridApi = event.api;
+        this.gridColumnApi = event.columnApi;
+        this.props.updateComponent(); //ignore this
+    }
+
     onSelectionChanged(event) {
+        let make = '';
+        // event.preventDefault();
         event.api.getSelectedNodes().forEach((node) => {
-            alert(node.data.make);
-            this.props.updateComponent(node.data.make);
+            // alert(node.data.make);
+            make += node.make;
+            make += ',';
         });
+        make=make.substring(0, make.length-1);
+        this.props.updateComponent(make);
+
+
         /*this.gridApi.getSelectedNodes().forEach((node) => {
             alert(node.data.make);
             this.props.updateComponent(node.data.make);
@@ -47,9 +61,10 @@ class App extends Component {
                     width: '600px'
                 }}
             >
-                <button onClick={this.onButtonClick}>Get selected rows</button>
+                {/*<button onClick={this.onButtonClick}>Get selected rows</button>*/}
                 <AgGridReact
-                    onGridReady={ params => this.gridApi = params.api }
+                    id="myGrid"
+                    onGridReady={this.onGridReady.bind(this)}
                     onSelectionChanged={this.onSelectionChanged.bind(this)}
                     rowSelection="multiple"
                     columnDefs={this.state.columnDefs}
@@ -59,12 +74,12 @@ class App extends Component {
         );
     }
 
-    onButtonClick = e => {
+    /*onButtonClick = e => {
         const selectedNodes = this.gridApi.getSelectedNodes();
         const selectedData = selectedNodes.map( node => node.data );
         const selectedDataStringPresentation = selectedData.map( node => node.make + ' ' + node.model).join(', ');
         alert(`Selected nodes: ${selectedDataStringPresentation}`);
-    }
+    }*/
 }
 
 export default App;
