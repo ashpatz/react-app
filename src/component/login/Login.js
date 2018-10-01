@@ -32,7 +32,7 @@ export class Login extends React.Component {
         )
     }
 }
-function mapDispatchToProps(dispatch) {
+const  mapDispatchToProps = (dispatch) => {
     return {
         login: (userparams, history) => {
             dispatch(LoginUser(userparams, history))

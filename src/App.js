@@ -53,23 +53,32 @@ class App extends Component {
 
 
     render() {
+        const columnDefs = [
+            {
+                headerName:"",
+                width: 40,
+                headerCheckboxSelection: true,
+                headerCheckboxSelectionFilteredOnly: true,
+                pinned:'left',
+                lockPinned:true,
+                checkboxSelection: true
+            }
+        ].concat(this.props.selCol);
+
         return (
-            <div
-                className="ag-theme-balham"
-                style={{
-                    height: '500px',
-                    width: '600px'
-                }}
-            >
-                {/*<button onClick={this.onButtonClick}>Get selected rows</button>*/}
-                <AgGridReact
-                    id="myGrid"
-                    onGridReady={this.onGridReady.bind(this)}
-                    onSelectionChanged={this.onSelectionChanged.bind(this)}
-                    rowSelection="multiple"
-                    columnDefs={this.state.columnDefs}
-                    rowData={this.state.rowData}>
-                </AgGridReact>
+            <div style={{width: "100%", height: "100%"}}>
+                <div id="myGrid" style={{boxSizing: "border-box", height: "85vh", width: "100%"}}
+                     className="ag-theme-balham marginTop">
+                    {/*<button onClick={this.onButtonClick}>Get selected rows</button>*/}
+                    <AgGridReact
+                        id="gridAg"
+                        onGridReady={this.onGridReady.bind(this)}
+                        onSelectionChanged={this.onSelectionChanged.bind(this)}
+                        rowSelection="multiple"
+                        columnDefs={columnDefs}
+                        rowData={this.props.data}>
+                    </AgGridReact>
+                </div>
             </div>
         );
     }

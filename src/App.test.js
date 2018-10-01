@@ -17,7 +17,7 @@ describe('grid component', () => {
     });
 
     it('should initialize grid', () => {
-        const agGridReact = wrapper.find('#myGrid');
+        const agGridReact = wrapper.find('#gridAg');
         agGridReact.simulate('gridReady', {
             preventDefault() {
             }
@@ -29,18 +29,19 @@ describe('grid component', () => {
 
 
         const rowData = [
-            {data: {make: "Toyota", model: "Celica", price: 35000}},
+            {make: "Toyota", model: "Celica", price: 35000},
             {make: "Ford", model: "Mondeo", price: 32000},
             {make: "Porsche", model: "Boxter", price: 72000}
             ];
 
-        const agGridReact = wrapper.find('#myGrid');
+        const agGridReact = wrapper.find('#gridAg');
         agGridReact.simulate('selectionChanged', {
             preventDefault() {
             },
             api: {
                 getSelectedNodes(){
                     return [rowData[0], rowData[2]];
+                    // return [];
                 }
             }
         });
